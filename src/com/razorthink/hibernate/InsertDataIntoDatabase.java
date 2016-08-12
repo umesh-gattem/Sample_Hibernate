@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import com.razorthink.hibernate.dto.Address;
 import com.razorthink.hibernate.dto.UserDetails;
 
 /**
@@ -23,23 +24,29 @@ public class InsertDataIntoDatabase {
 	public static void main(String[] args) {
 
 		UserDetails user = new UserDetails();
+		Address address=new Address();
 		user.setUserName("umesh");
-		user.setAddress("Bangalore");
 		user.setDescription("employee at razorthink");
 		user.setJoinDate(new Date());
+		address.setCity("Bangalore");
+		address.setStreet("Tyagarajanagar");
+		address.setState("Karnataka");
+		address.setPincode("560028");
+		user.setAddress(address);
 		
-		UserDetails secondUser=new UserDetails();
+		Address homeAddress= new Address();
+
+		homeAddress.setCity("Visakhapatnam");
+		homeAddress.setStreet("MVP colony");
+		homeAddress.setState("Andhra Pradesh");
+		homeAddress.setPincode("535002");
 		
-		secondUser.setUserName("kumar");
-		secondUser.setAddress("Visakhapatnam");
-		secondUser.setDescription("Student");
-		secondUser.setJoinDate(new Date());
+		user.setHomeAdress(homeAddress);
 		
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(user);
-		session.save(secondUser);
 		session.getTransaction().commit();
 	}
 

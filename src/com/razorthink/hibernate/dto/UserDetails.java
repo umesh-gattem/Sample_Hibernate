@@ -2,7 +2,10 @@ package com.razorthink.hibernate.dto;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,21 +31,39 @@ public class UserDetails {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int userId;
 	private String userName;
-	private String address;
+	@Embedded
+	private Address address;
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="street", column=@Column(name="Home_street")),
+		@AttributeOverride(name="city", column=@Column(name="Home_city")),
+		@AttributeOverride(name="state", column=@Column(name="Home_state")),
+		@AttributeOverride(name="pincode", column=@Column(name="Home_pincode"))
+	})
+	private Address homeAdress;
+	public Address getHomeAdress() {
+		return homeAdress;
+	}
+
+	public void setHomeAdress(Address homeAdress) {
+		this.homeAdress = homeAdress;
+	}
+
 	private String description;
 	@Temporal(TemporalType.DATE)
 	private Date joinDate;
 
-	public int getUserId() {
-		return userId;
-	}
-
-	public String getAddress() {
+	
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public int getUserId() {
+		return userId;
 	}
 
 	public String getDescription() {
