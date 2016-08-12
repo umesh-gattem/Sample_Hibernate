@@ -1,8 +1,8 @@
 package com.razorthink.hibernate.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -10,12 +10,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 
 /**
- * This is the POJO method for the UserDetails table with the members like id, name, address, date, description
+ * This is the POJO method for the UserDetails using arraylist for the address attribute
  * 
  * @author umesh
  * 
@@ -24,7 +30,7 @@ import javax.persistence.TemporalType;
  */
 
 @Entity(name = "user_details")
-public class UserDetails {
+public class UserDetailsusingArrayList {
 
 	@Id
 	@Column(name = "user_id")
@@ -32,13 +38,16 @@ public class UserDetails {
 	private int userId;
 	private String userName;
 	@ElementCollection
-	private Set<Address> listofAddresses= new HashSet<Address>();
+	@JoinTable(name="User_Address" ,joinColumns=@JoinColumn(name="User_Id"))
+	@GenericGenerator(name = "hilo-gen", strategy = "hilo")
+	@CollectionId(columns = { @Column(name="Address_id") }, generator = "hilo-gen", type = @Type(type = "long"))
+	private Collection<Address> listofAddresses= new ArrayList<Address>();
 	
-	public Set<Address> getListofAddresses() {
+	public Collection<Address> getListofAddresses() {
 		return listofAddresses;
 	}
 
-	public void setListofAddresses(Set<Address> listofAddresses) {
+	public void setListofAddresses(Collection<Address> listofAddresses) {
 		this.listofAddresses = listofAddresses;
 	}
 

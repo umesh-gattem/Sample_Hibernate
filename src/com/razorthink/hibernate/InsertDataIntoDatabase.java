@@ -7,13 +7,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.razorthink.hibernate.dto.Address;
-import com.razorthink.hibernate.dto.UserDetails;
+import com.razorthink.hibernate.dto.UserDetailsusingArrayList;
 
 /**
  * This class shows how to insert data into the data into the database.
- * session.save() method is used to insert data into database.Here java
- * collections is used to insert similar type of data. Set collection is used in
- * the userDetails pojo .
+ * session.save() method is used to insert data into database.
  * 
  * @author umesh
  * 
@@ -25,7 +23,7 @@ public class InsertDataIntoDatabase {
 
 	public static void main(String[] args) {
 
-		UserDetails user = new UserDetails();
+		UserDetailsusingArrayList user = new UserDetailsusingArrayList();
 		Address address = new Address();
 		user.setUserName("umesh");
 		user.setDescription("employee at razorthink");
