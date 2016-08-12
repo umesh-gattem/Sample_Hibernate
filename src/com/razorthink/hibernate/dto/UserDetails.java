@@ -1,11 +1,11 @@
 package com.razorthink.hibernate.dto;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,36 +31,20 @@ public class UserDetails {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int userId;
 	private String userName;
-	@Embedded
-	private Address address;
-	@Embedded
-	@AttributeOverrides({
-		@AttributeOverride(name="street", column=@Column(name="Home_street")),
-		@AttributeOverride(name="city", column=@Column(name="Home_city")),
-		@AttributeOverride(name="state", column=@Column(name="Home_state")),
-		@AttributeOverride(name="pincode", column=@Column(name="Home_pincode"))
-	})
-	private Address homeAdress;
-	public Address getHomeAdress() {
-		return homeAdress;
+	@ElementCollection
+	private Set<Address> listofAddresses= new HashSet<Address>();
+	
+	public Set<Address> getListofAddresses() {
+		return listofAddresses;
 	}
 
-	public void setHomeAdress(Address homeAdress) {
-		this.homeAdress = homeAdress;
+	public void setListofAddresses(Set<Address> listofAddresses) {
+		this.listofAddresses = listofAddresses;
 	}
 
 	private String description;
 	@Temporal(TemporalType.DATE)
 	private Date joinDate;
-
-	
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 
 	public int getUserId() {
 		return userId;

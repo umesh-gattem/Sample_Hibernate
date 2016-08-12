@@ -11,7 +11,9 @@ import com.razorthink.hibernate.dto.UserDetails;
 
 /**
  * This class shows how to insert data into the data into the database.
- * session.save() methos is used to insert data into database.
+ * session.save() method is used to insert data into database.Here java
+ * collections is used to insert similar type of data. Set collection is used in
+ * the userDetails pojo .
  * 
  * @author umesh
  * 
@@ -24,7 +26,7 @@ public class InsertDataIntoDatabase {
 	public static void main(String[] args) {
 
 		UserDetails user = new UserDetails();
-		Address address=new Address();
+		Address address = new Address();
 		user.setUserName("umesh");
 		user.setDescription("employee at razorthink");
 		user.setJoinDate(new Date());
@@ -32,17 +34,16 @@ public class InsertDataIntoDatabase {
 		address.setStreet("Tyagarajanagar");
 		address.setState("Karnataka");
 		address.setPincode("560028");
-		user.setAddress(address);
-		
-		Address homeAddress= new Address();
+
+		user.getListofAddresses().add(address);
+		Address homeAddress = new Address();
 
 		homeAddress.setCity("Visakhapatnam");
 		homeAddress.setStreet("MVP colony");
 		homeAddress.setState("Andhra Pradesh");
 		homeAddress.setPincode("535002");
-		
-		user.setHomeAdress(homeAddress);
-		
+		user.getListofAddresses().add(homeAddress);
+
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
