@@ -45,6 +45,7 @@
 
 		<!-- Names the annotated entity class -->
 		<mapping class="com.razorthink.hibernate.dto.UserDetails" />
+		<mapping class="com.razorthink.hibernate.dto.Vehicle" />
 
 	</session-factory>
 
